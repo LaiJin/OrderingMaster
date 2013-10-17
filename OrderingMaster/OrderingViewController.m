@@ -18,7 +18,7 @@
 
 @implementation OrderingViewController
 
-@synthesize OrderingList,MealPrice;
+@synthesize OrderingList;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -29,12 +29,7 @@
     return self;
 }
 
-//定义接收通知的函数
--(void)addNotificationObserver :(SEL)selector :(NSString*)name{
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:selector name:name object:nil];
-    
-}
+
 
 //接收分别触发了人员列表 餐厅列表 套餐列表的cell传递来的通知
 - (id)init
@@ -42,10 +37,12 @@
     self = [super init];
     if(self)
     {
-        [self addNotificationObserver:@selector(personnelText:)  :@"PersonnelData"];
-        [self addNotificationObserver:@selector(restaurantText:) :@"RestaurantData"];
-        [self addNotificationObserver:@selector(mealText:)       :@"MealData"];
-        [self addNotificationObserver:@selector(mealPrice:)      :@"MealPrice"];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(personnelText:) name:@"PersonnelData" object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(restaurantText:) name:@"RestaurantData" object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(mealText:) name:@"MealData" object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(mealPrice:) name:@"MealPrice" object:nil];
+        
     }
     return self;
 }
@@ -80,7 +77,7 @@
 
 -(void)mealPrice :(NSNotification*)notification{
  
-    self.MealPrice = [notification object];
+    self.OrderingList.theNewModel.MealPrice = [notification object];
 }
 
 
@@ -93,7 +90,6 @@
     self.navigationItem.backBarButtonItem = backBarButton;
     theOrderingView = [[OrderingView alloc]init];
     [theOrderingView initOrderingView:self];
-    
     self.OrderingList = [[OrderingList alloc]init]; 
     self.OrderingList.theNewModel = [[OrderingModel alloc]init];
     [self.OrderingList recallorderingList];
@@ -144,7 +140,6 @@
     self.OrderingList.theNewModel.PeopleName =theOrderingView.PersonnelTextField.text;
     self.OrderingList.theNewModel.RestaurantName = theOrderingView.RestaurantTextField.text;
     self.OrderingList.theNewModel.MealName = theOrderingView.MealTextField.text;
-    self.OrderingList.theNewModel.MealPrice = MealPrice;
     [self.OrderingList addOrderInfo];
     [self emptyPersonnelTextAndMealText];
     [[NSNotificationCenter defaultCenter]  postNotificationName: @"CofimButtonClick"  object: nil  userInfo:nil];
@@ -158,19 +153,15 @@
     if (theOrderingView.MealTextField.text == nil || theOrderingView.RestaurantTextField.text == nil || theOrderingView.PersonnelTextField.text == nil)
         theOrderingView.ConfirmButton.enabled = NO;
 }
-//定义取消接受通知对象的函数
--(void)removeNotificationObserver  :(NSString*)name{
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:name object:nil];
-    
-}
+
 
 -(void)dealloc{
     
-    [self removeNotificationObserver :@"PersonnelData"];
-    [self removeNotificationObserver :@"RestaurantData"];
-    [self removeNotificationObserver :@"MealData"];
-    [self removeNotificationObserver :@"MealPrice"];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"PersonnelData" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"RestaurantData" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"MealData" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"MealPrice" object:nil];
+
     
 }
 

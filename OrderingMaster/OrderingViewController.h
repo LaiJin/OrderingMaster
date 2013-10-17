@@ -12,13 +12,11 @@
 
 @interface OrderingViewController : UIViewController{
     
-    NSString     *MealPrice;
     OrderingList *OrderingList;
     OrderingView *theOrderingView;
     
 }
 
-@property(nonatomic,strong)NSString     *MealPrice;
 @property(nonatomic,strong)OrderingList *OrderingList;
 
 

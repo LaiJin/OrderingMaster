@@ -73,7 +73,7 @@
         Row = [self.OrderingList countOftheOrderingList];
     
     if (section == 1) 
-        Row = 6-[self.OrderingList countOftheOrderingList];
+        Row = [[self.OrderingList NotOrderingPeople] count];
     
     return Row;
 }
@@ -93,7 +93,7 @@
         cell.detailTextLabel.text = [self mealPriceText:current :cell];
     }
     if (indexPath.section == 1) {
-        cell.textLabel.text = [self.OrderingList indexNotOrdering:indexPath.row];
+        cell.textLabel.text =[[self.OrderingList NotOrderingPeople]objectAtIndex:indexPath.row];
         cell.detailTextLabel.text = nil;
     }
     return cell;
@@ -131,8 +131,8 @@
 
 -(NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
     
-    NSString *firstSection = [NSString stringWithFormat:@"%i人已定",[self.OrderingList   countOftheOrderingList]];
-    NSString *secondSection = [NSString stringWithFormat:@"%i人未定",[self.OrderingList countOfNotOrderingPeople]];
+    NSString *firstSection = [NSString stringWithFormat:@"%i人已定", [self.OrderingList   countOftheOrderingList]];
+    NSString *secondSection = [NSString stringWithFormat:@"%i人未定", [[self.OrderingList NotOrderingPeople] count]] ;
     NSMutableArray *titleForHeader = [[NSMutableArray alloc]init];
     [titleForHeader addObject:firstSection];
     [titleForHeader addObject:secondSection];

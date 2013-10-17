@@ -12,7 +12,7 @@
 @implementation OrderingList
 {
     NSMutableArray *theOrderingList;
-    NSMutableArray *notOreringPeople;
+    
 }
 
 
@@ -118,10 +118,7 @@
     return [theOrderingList count];
 }
 
--(NSInteger)countOfNotOrderingPeople{
-    
-    return [notOreringPeople count];
-}
+
 
 
 -(NSString*)MealPriceSum{
@@ -133,19 +130,18 @@
         OrderingModel *outOrderingModel = [theOrderingList objectAtIndex:i];
         MealPriceSum += [outOrderingModel.MealPrice floatValue];
     }
-    NSString *PriceSumText = [NSString stringWithFormat:@"%i人已定，%i人未定，总计%.2f元",[theOrderingList count],[notOreringPeople count],MealPriceSum];
+    NSString *PriceSumText = [NSString stringWithFormat:@"%i人已定，%i人未定，总计%.2f元",[theOrderingList count],[[self NotOrderingPeople] count],MealPriceSum];
     return PriceSumText;
 }
 
 
--(NSString*)indexNotOrdering:(int)index{
+-(NSMutableArray*)NotOrderingPeople{
     
     NSMutableArray *AllPeople = [NSMutableArray arrayWithObjects:@"赵大",@"钱二",@"张三",@"李四",@"王五",@"刘六", nil];
     for (int i = 0; i < [theOrderingList count]; i++)
         [self compareOrderPeople:i :AllPeople];
-    notOreringPeople = [NSMutableArray arrayWithArray:AllPeople];
-    NSString *labeltext = [notOreringPeople objectAtIndex:index];
-    return labeltext;
+   NSMutableArray *notOreringPeople = [NSMutableArray arrayWithArray:AllPeople];
+    return notOreringPeople;
     
 }
 

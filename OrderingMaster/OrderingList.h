@@ -22,9 +22,8 @@
 -(void)inittheOrderingList;
 -(OrderingModel*)indexOrderingModel :(int) index;
 -(NSInteger)countOftheOrderingList;
--(NSInteger)countOfNotOrderingPeople;
 -(NSString*)MealPriceSum;
--(NSString*)indexNotOrdering :(int)index;
+-(NSMutableArray*)NotOrderingPeople;
 
 
 

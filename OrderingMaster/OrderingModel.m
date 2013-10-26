@@ -10,7 +10,7 @@
 
 @implementation OrderingModel
 
-@synthesize PeopleName,MealPrice,MealName,RestaurantName;
+
 
 
 - (id)initWithCoder:(NSCoder *)aDecoder{
@@ -18,20 +18,20 @@
     self = [super init];
     if(self)
         
-    PeopleName = [aDecoder decodeObjectForKey:@"peoplename"];
-    RestaurantName = [aDecoder decodeObjectForKey:@"restaurantname"];
-    MealName = [aDecoder decodeObjectForKey:@"mealname"];
-    MealPrice = [aDecoder decodeObjectForKey:@"mealprice"];
+    self.PeopleName = [aDecoder decodeObjectForKey:@"peoplename"];
+    self.RestaurantName = [aDecoder decodeObjectForKey:@"restaurantname"];
+    self.MealName = [aDecoder decodeObjectForKey:@"mealname"];
+    self.MealPrice = [aDecoder decodeObjectForKey:@"mealprice"];
     
     return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder{
     
-    [aCoder encodeObject:PeopleName forKey:@"peoplename"];
-    [aCoder encodeObject:RestaurantName forKey:@"restaurantname"];
-    [aCoder encodeObject:MealName forKey:@"mealname"];
-    [aCoder encodeObject:MealPrice forKey:@"mealprice"];
+    [aCoder encodeObject:self.PeopleName forKey:@"peoplename"];
+    [aCoder encodeObject:self.RestaurantName forKey:@"restaurantname"];
+    [aCoder encodeObject:self.MealName forKey:@"mealname"];
+    [aCoder encodeObject:self.MealPrice forKey:@"mealprice"];
     
 }
 @end

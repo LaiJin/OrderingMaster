@@ -9,14 +9,7 @@
 #import <Foundation/Foundation.h>
 
 
-@interface OrderingModel : NSObject<NSCoding>{
-    
-    NSString *PeopleName;
-    NSString *RestaurantName;
-    NSString *MealName;
-    NSString *MealPrice;
-    
-}
+@interface OrderingModel : NSObject<NSCoding>
 
 
 @property(nonatomic,strong)NSString *PeopleName;
